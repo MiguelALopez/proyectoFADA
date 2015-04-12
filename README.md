@@ -37,6 +37,21 @@ Camilo Lunes 21:00 - 23:00
 
 El comité de supervisión más pequeño posible consiste del monitor Andres, ya que el turno
 de Laura y el de Camilo se cruza con el turno de Andres.
+<ol>
+  <li>Resuelva el problema de seleccionar un comité de supervisión entre los monitores de la
+      Universidad del Valle por medio de un algoritmo ingenuo o exhaustivo.</li>
+  <li>Resuelva el problema de seleccionar un comité de supervisión entre los monitores de
+      la Universidad del Valle por medio de un algoritmo más inteligente en el sentido en que
+      no tiene en cuenta todos los posibles comités.</li>
+  <li>Teniendo en cuenta que los datos de entrada de los problemas pueden seguir las siguientes
+      distribuciones:
+      ⋅⋅*  **Distribución Uniforme:** En cada momento del tiempo existe misma probabilidad de tener
+       monitores realizando turnos.
+      ..* **Distribución Normal:** Existe un momento en el tiempo en el cual la probabilidad de tener
+      monitores en turno es mas alta que en otros momentos</li>
+  <li>¿En todos los casos funciona claramente mejor el algoritmo más inteligente? Sino, ¿En
+      cuáles y por qué?</li>
+</ol>  
 1. Resuelva el problema de seleccionar un comité de supervisión entre los monitores de la
 Universidad del Valle por medio de un algoritmo ingenuo o exhaustivo.
 2. Resuelva el problema de seleccionar un comité de supervisión entre los monitores de
