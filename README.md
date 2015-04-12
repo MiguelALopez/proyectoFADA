@@ -46,9 +46,9 @@ de Laura y el de Camilo se cruza con el turno de Andres.
   <li>Teniendo en cuenta que los datos de entrada de los problemas pueden seguir las siguientes
       distribuciones:
        <ul>
-        <li>**Distribución Uniforme:** En cada momento del tiempo existe misma probabilidad de tener
+        <li><strong>Distribución Uniforme:</strong> En cada momento del tiempo existe misma probabilidad de tener
                    monitores realizando turnos.</li>
-        <li>**Distribución Normal:** Existe un momento en el tiempo en el cual la probabilidad de tener
+        <li><strong>Distribución Normal:</strong>Existe un momento en el tiempo en el cual la probabilidad de tener
                   monitores en turno es mas alta que en otros momentos</li>
       </ul> 
   </li>
@@ -98,18 +98,22 @@ Tarea3 (3:00 - 14:00)
 Tarea4 (13:00 - 13:00)
 
 La solucion óptica seria escoger las tareas 2 y 4 para el día siguiente.
-1. Resuelva el problema de seleccionar las tareas a realizar en el procesador por medio de un algoritmo
-ingenuo o exhaustivo.
-2. Resuelva el problema de seleccionar las tareas a realizar en el procesador por medio de un algoritmo
-más inteligente, en el sentido que no analize exhaustivamente todas las posibles formas en que se
-podrían organizar las tareas
-3. Teniendo en cuenta que los datos de entrada de los dos problemas pueden seguir las siguientes
-distribuciones:
-..* **Distribución Uniforme:** En cada momento del tiempo existe la misma probabilidad de tener 
-solicitudes de tareas diarias.
-..* **Distrubucion Normal:** Existe un memento de tiempo en el cual la probabilidad de tener solicitudes
-de tareas diarias es mas alta que en otros momentos.
-4. ¿En todos los casos funciona claramente mejor el algoritmo más inteligente? Sino, ¿En cuáles y por qué?
+<ol>
+  <li>Resuelva el problema de seleccionar las tareas a realizar en el procesador por medio de un algoritmo
+      ingenuo o exhaustivo.</li>
+  <li>Resuelva el problema de seleccionar las tareas a realizar en el procesador por medio de un algoritmo
+      más inteligente, en el sentido que no analize exhaustivamente todas las posibles formas en que se
+      podrían organizar las tareas</li>
+  <li>Teniendo en cuenta que los datos de entrada de los dos problemas pueden seguir las siguientes
+      distribuciones:
+      <ul>
+        <li><strong>Distribución Uniforme:</strong> En cada momento del tiempo existe la misma probabilidad de tener </li>
+        <li><strong>Distrubucion Normal:</strong> Existe un memento de tiempo en el cual la probabilidad de tener solicitudes
+                  de tareas diarias es mas alta que en otros momentos.</li>
+      </ul> 
+  </li>
+  <li>¿En todos los casos funciona claramente mejor el algoritmo más inteligente? Sino, ¿En cuáles y por qué?</li>
+</ol> 
 
 ### 3.3. Entrada
 Se va a recibir como entrada un archivo de texto que esta organizado de la siguiente forma
