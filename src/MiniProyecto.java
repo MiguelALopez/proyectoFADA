@@ -1,5 +1,3 @@
-import Interfaz.MenuPrincipal;
-
 /**
  * ********************************************
  * Autor: Miguel Angel Lopez Fernandez
@@ -11,9 +9,12 @@ import Interfaz.MenuPrincipal;
  * Institución Educativa: Universidad del Valle (Cali - Colombia)
  * *********************************************
  */
+import Interfaz.Eventos;
+import Interfaz.MenuPrincipal;
 
 public class MiniProyecto {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
+        new Eventos(menuPrincipal);
     }
 }
