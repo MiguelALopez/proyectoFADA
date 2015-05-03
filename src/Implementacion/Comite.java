@@ -45,14 +45,13 @@ public class Comite {
             System.out.println();*/
         }else {
             for (int i = 0; i < n; i++) {
+                ArrayList<Monitor> tmp = new ArrayList<Monitor>();
+                tmp.addAll(comite);
+                tmp.add(monitors.get(i));
+                permutacion(tmp, excludeMonitor(monitors, i));
                 //Esta condicion verifica si el monitor puede no ser integrante del comite
                 if (checkNoIntegrante(comite, monitors.get(i))){
                     permutacion(comite, excludeMonitor(monitors, i));
-                }else {
-                    ArrayList<Monitor> tmp = new ArrayList<Monitor>();
-                    tmp.addAll(comite);
-                    tmp.add(monitors.get(i));
-                    permutacion(tmp, excludeMonitor(monitors, i));
                 }
             }
         }
@@ -72,6 +71,11 @@ public class Comite {
                 //Se compara si la hora de fin del monitor esta entre una de las horas del comite
                 if (monitor.getHoraFin() > comite.get(i).getHoraInicio() &&
                         monitor.getHoraFin() < comite.get(i).getHoraFin()){
+                    noIntegrante = true;
+                }
+                //Se compara si la hora inicio y fin del monitor son igual a la de uno del comite
+                if (monitor.getHoraInicio() == comite.get(i).getHoraInicio() &&
+                        monitor.getHoraFin() == comite.get(i).getHoraFin()){
                     noIntegrante = true;
                 }
             }
