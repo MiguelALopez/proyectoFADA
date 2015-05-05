@@ -141,9 +141,9 @@ public class ComiteInteligente {
         if(indice<acumula[mayor]){
             acumula[mayor]=0;
             while(!termina){
-                    
+                 // System.out.println("indiceeeeeeeeeeee "+ indice);  
                 pos = encontrarPosicion(indice);
-
+                //System.out.println("posicionnnnnnnnnnn "+ pos); 
                 while(pos != -1){
                     //System.out.println("hola que hace");
                     termina = llenarResultado(pos);
@@ -154,14 +154,16 @@ public class ComiteInteligente {
 
                 indice--;
                 if(indice==0){
-                    indice=acumula[mayor];
+                    indice=indice2;
                 }
             }
         }else{
            acumula[mayor]=0;  
+           
            while(!termina){
                        
             pos = encontrarPosicion(indice2);
+            
                 while(pos != -1){
                     termina = llenarResultado(pos);
                     pos = encontrarPosicion(indice2);
@@ -225,7 +227,7 @@ public class ComiteInteligente {
         Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
         Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 7);
         Monitor mon6 =  new Monitor("Samanta", "Lunes", 6, 7);
-        Monitor mon7 =  new Monitor("Samanta", "Lunes", 7, 8);
+        Monitor mon7 =  new Monitor("Samanta", "Lunes", 4, 9);
         //Monitor mon8 =  new Monitor("Samanta", "Lunes", 6, 7);
         monitores1.add(mon);
         monitores1.add(mon2);
