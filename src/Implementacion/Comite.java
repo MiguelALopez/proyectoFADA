@@ -64,20 +64,11 @@ public class Comite {
             //Se compara que este en el mismo dia
             if (monitor.getDia().equals(comite.get(i).getDia())){
                 //Se compara si la hora de inicio del monitor esta entre una de las horas del comite
-                if (monitor.getHoraInicio() > comite.get(i).getHoraInicio() &&
-                        monitor.getHoraInicio() < comite.get(i).getHoraFin()){
+                if (monitor.getHoraInicio() < comite.get(i).getHoraFin() &&
+                        monitor.getHoraFin() > comite.get(i).getHoraInicio()){
                     noIntegrante = true;
                 }
-                //Se compara si la hora de fin del monitor esta entre una de las horas del comite
-                if (monitor.getHoraFin() > comite.get(i).getHoraInicio() &&
-                        monitor.getHoraFin() < comite.get(i).getHoraFin()){
-                    noIntegrante = true;
-                }
-                //Se compara si la hora inicio y fin del monitor son igual a la de uno del comite
-                if (monitor.getHoraInicio() == comite.get(i).getHoraInicio() &&
-                        monitor.getHoraFin() == comite.get(i).getHoraFin()){
-                    noIntegrante = true;
-                }
+
             }
         }
         return noIntegrante;
