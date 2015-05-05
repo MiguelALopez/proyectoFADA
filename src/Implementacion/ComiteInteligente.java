@@ -221,14 +221,14 @@ public class ComiteInteligente {
     public static void main (String[] args){
         ArrayList<Monitor> monitores1 = new ArrayList<Monitor>();
         
-        Monitor mon =  new Monitor("Julian", "Lunes", 1, 6);
+        Monitor mon =  new Monitor("Julian", "Lunes", 1, 3);
         Monitor mon2 =  new Monitor("Andres", "Lunes", 2, 3);
-        Monitor mon3 =  new Monitor("Concobu", "Lunes", 3, 4);
+        Monitor mon3 =  new Monitor("Concobu", "Lunes", 3, 5);
         Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
         Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 7);
         Monitor mon6 =  new Monitor("Samanta", "Lunes", 6, 7);
-        Monitor mon7 =  new Monitor("Samanta", "Lunes", 4, 9);
-        //Monitor mon8 =  new Monitor("Samanta", "Lunes", 6, 7);
+        Monitor mon7 =  new Monitor("Samanta", "Lunes", 7, 9);
+        Monitor mon8 =  new Monitor("Samanta", "Lunes", 6, 7);
         monitores1.add(mon);
         monitores1.add(mon2);
         monitores1.add(mon3);
@@ -236,10 +236,10 @@ public class ComiteInteligente {
         monitores1.add(mon5);
         monitores1.add(mon6);
         monitores1.add(mon7);
-        //monitores1.add(mon8);
+        monitores1.add(mon8);
 
         
-        ComiteInteligente comite = new ComiteInteligente(7, monitores1);
+        ComiteInteligente comite = new ComiteInteligente(8, monitores1);
         
         comite.llenarMatriz();
         comite.imprimir();
