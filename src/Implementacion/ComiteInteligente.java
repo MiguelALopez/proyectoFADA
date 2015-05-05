@@ -26,6 +26,13 @@ public class ComiteInteligente {
         resultado = new int[n];
     }
     
+    public void iniResultado(){
+        
+        for (int i=0; i<n; i++){
+            resultado[i]=-1;
+        }
+    }
+    
     public void llenarMatriz(){
         int tam = monitores.size();
         for(int i=0; i<tam; i++){
@@ -104,14 +111,14 @@ public class ComiteInteligente {
          
        for(int i=0; i<resultado.length; i++){
 
-           if(resultado[i] == 0 && seleccionFila[i] !=0){
+           if(resultado[i] == -1 && seleccionFila[i] !=0){
                resultado[i] = pos;
                System.out.println("posicion "+i+" resultado "+resultado[i]);
            }
        } 
        
        for(int i=0; i<n; i++){
-           if(resultado[i] == 0){
+           if(resultado[i] == -1){
                llenaResultado = false;
            }
        }
@@ -145,15 +152,14 @@ public class ComiteInteligente {
                 }
 
 
-                indice++;
-
-                if(indice == mayor+1 || indice == n){
-                   indice=1; 
+                indice--;
+                if(indice==0){
+                    indice=acumula[mayor];
                 }
             }
         }else{
            acumula[mayor]=0;  
-           while(!termina && indice2 > 0){
+           while(!termina){
                        
             pos = encontrarPosicion(indice2);
                 while(pos != -1){
@@ -213,24 +219,29 @@ public class ComiteInteligente {
     public static void main (String[] args){
         ArrayList<Monitor> monitores1 = new ArrayList<Monitor>();
         
-        Monitor mon =  new Monitor("Julian", "Lunes", 16, 20);
-        Monitor mon2 =  new Monitor("Andres", "Lunes", 18, 22);
-        Monitor mon3 =  new Monitor("Concobu", "Lunes", 21, 23);
-        //Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
-        //Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 6);
-        //Monitor mon6 =  new Monitor("Samanta", "Lunes", 7, 8);
+        Monitor mon =  new Monitor("Julian", "Lunes", 1, 6);
+        Monitor mon2 =  new Monitor("Andres", "Lunes", 2, 3);
+        Monitor mon3 =  new Monitor("Concobu", "Lunes", 3, 4);
+        Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
+        Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 7);
+        Monitor mon6 =  new Monitor("Samanta", "Lunes", 6, 7);
+        Monitor mon7 =  new Monitor("Samanta", "Lunes", 7, 8);
+        //Monitor mon8 =  new Monitor("Samanta", "Lunes", 6, 7);
         monitores1.add(mon);
         monitores1.add(mon2);
         monitores1.add(mon3);
-        //monitores1.add(mon4);
-        //monitores1.add(mon5);
-        //monitores1.add(mon6);
+        monitores1.add(mon4);
+        monitores1.add(mon5);
+        monitores1.add(mon6);
+        monitores1.add(mon7);
+        //monitores1.add(mon8);
 
         
-        ComiteInteligente comite = new ComiteInteligente(6, monitores1);
+        ComiteInteligente comite = new ComiteInteligente(7, monitores1);
         
         comite.llenarMatriz();
         comite.imprimir();
+        comite.iniResultado();
         comite.comite();
 
     }
