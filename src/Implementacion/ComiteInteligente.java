@@ -91,6 +91,7 @@ public class ComiteInteligente {
                 //System.out.println("hola");
                 posicion=i;
                 acumula[i] = 0;
+                return posicion;
             }
         }
         
@@ -119,32 +120,49 @@ public class ComiteInteligente {
         return llenaResultado;
     }
     
-    public void general(){
+    public void comite(){
         int mayor=mayor();
-        System.out.println(mayor + " hola");
+        
         boolean termina = llenarResultado(mayor);
         
         int indice = n-acumula[mayor];
-        acumula[mayor]=0;
+        int indice2= acumula[mayor];
+        
+        
         int pos=0;
         
-        while(!termina){
-            
-            pos = encontrarPosicion(indice);
-            //System.out.println("jajajja" + pos);
-            while(pos != -1){
-                //System.out.println("hola que hace");
-                termina = llenarResultado(pos);
+        if(indice<acumula[mayor]){
+            acumula[mayor]=0;
+            while(!termina){
+                    
                 pos = encontrarPosicion(indice);
-                
+
+                while(pos != -1){
+                    //System.out.println("hola que hace");
+                    termina = llenarResultado(pos);
+                    pos = encontrarPosicion(indice);
+
+                }
+
+
+                indice++;
+
+                if(indice == mayor+1 || indice == n){
+                   indice=1; 
+                }
             }
-            
-            
-            indice++;
-            
-            if(indice == mayor+1 || indice == n){
-               indice=1; 
-            }
+        }else{
+           acumula[mayor]=0;  
+           while(!termina && indice2 > 0){
+                       
+            pos = encontrarPosicion(indice2);
+                while(pos != -1){
+                    termina = llenarResultado(pos);
+                    pos = encontrarPosicion(indice2);
+                    
+                }
+                indice2--;
+            } 
         }
     }
 
@@ -195,25 +213,25 @@ public class ComiteInteligente {
     public static void main (String[] args){
         ArrayList<Monitor> monitores1 = new ArrayList<Monitor>();
         
-        Monitor mon =  new Monitor("Laura", "Lunes", 1, 2);
-        Monitor mon2 =  new Monitor("Andres", "Lunes", 2, 3);
-        Monitor mon3 =  new Monitor("Camilo", "Lunes", 3, 4);
-        Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
-        Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 6);
-        Monitor mon6 =  new Monitor("Samanta", "Lunes", 6, 7);
+        Monitor mon =  new Monitor("Julian", "Lunes", 16, 20);
+        Monitor mon2 =  new Monitor("Andres", "Lunes", 18, 22);
+        Monitor mon3 =  new Monitor("Concobu", "Lunes", 21, 23);
+        //Monitor mon4 =  new Monitor("Filson", "Lunes", 4, 5);
+        //Monitor mon5 =  new Monitor("Emilio", "Lunes", 5, 6);
+        //Monitor mon6 =  new Monitor("Samanta", "Lunes", 7, 8);
         monitores1.add(mon);
         monitores1.add(mon2);
         monitores1.add(mon3);
-        monitores1.add(mon4);
-        monitores1.add(mon5);
-        monitores1.add(mon6);
+        //monitores1.add(mon4);
+        //monitores1.add(mon5);
+        //monitores1.add(mon6);
 
         
         ComiteInteligente comite = new ComiteInteligente(6, monitores1);
         
         comite.llenarMatriz();
         comite.imprimir();
-        comite.general();
+        comite.comite();
 
     }
 
