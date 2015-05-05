@@ -11,9 +11,7 @@
  */
 package Interfaz;
 
-import Implementacion.CargaArchivos;
-import Implementacion.Comite;
-import Implementacion.Monitor;
+import Implementacion.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +31,7 @@ public class Eventos {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //Creo un JfileChooser para obtener el fichero
-                        JFileChooser jFileChooser = new JFileChooser();
+                        /*JFileChooser jFileChooser = new JFileChooser();
                         jFileChooser.showOpenDialog(menuPrincipal);
                         String url = String.valueOf(jFileChooser.getSelectedFile());
                         if (!url.equals("null")){// Se comprueba que no sea una url vacia
@@ -53,7 +51,22 @@ public class Eventos {
                                 mensaje += com.get(i).getNombre() + "\n";
                             }
                             JOptionPane.showMessageDialog(null, mensaje);
+                        }*/
+                        ArrayList<Proceso> procesos = new ArrayList<Proceso>();
+                        procesos.add(new Proceso("tarea1", 1800, 2100));
+                        procesos.add(new Proceso("tarea2", 2100, 2400));
+                        procesos.add(new Proceso("tarea3", 300, 1400));
+                        procesos.add(new Proceso("tarea4", 1300, 1900));
+                        ProcesadorIngenuo procesadorIngenuo = new ProcesadorIngenuo();
+                        procesadorIngenuo.setProcesos(procesos);
+                        ArrayList<Proceso> com = procesadorIngenuo.generaProcesosIngenua();
+                        String mensaje = "Numero de personas en el comite";
+                        mensaje+= com.size() + "\n";
+                        for (int i = 0; i < com.size(); i++) {
+                            mensaje += com.get(i).getTarea() + "\n";
                         }
+                        JOptionPane.showMessageDialog(null, mensaje);
+
                     }
                 }
         );
