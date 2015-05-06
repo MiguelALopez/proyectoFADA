@@ -25,9 +25,8 @@ import java.util.StringTokenizer;
 public class CargaArchivos {
 
     public ArrayList<Monitor> cargarMonitores(File file){
-        ArrayList<Monitor> monitors = new ArrayList<Monitor>();
+        ArrayList<Monitor> monitors = new ArrayList<>();
         String buffer;
-        boolean correct = true; // variable usada para verificar si esta en el rango correcto de numeros
         if (file != null){
             try {
                 FileReader archivos = new FileReader(file);
@@ -35,16 +34,14 @@ public class CargaArchivos {
                 //Lee la primera linea de el numero
                 lee.readLine();
                 //Ciclo para almacenar los datos del texto en el arreglo del mapa positionsMap
-                for (int i = 0; (buffer=lee.readLine())!=null && correct; i++) {
+                for (int i = 0; (buffer=lee.readLine())!=null; i++) {
                     //Se separa en tokens por espacios y "-"
-                    StringTokenizer st = new StringTokenizer(buffer, " -");
+                    StringTokenizer st = new StringTokenizer(buffer, " -:");
                     String nombre = st.nextToken(); //Se guarda el nombre
                     String dia = st.nextToken().toLowerCase(); //Se guarda el dia en minusculas
-                    StringTokenizer inicio = new StringTokenizer(st.nextToken(), ":"); //Se separa la hora por ":"
                     //Se maneja hora militar para facilitar su uso
-                    int horaInicio = Integer.parseInt(inicio.nextToken() + inicio.nextToken());
-                    StringTokenizer fin = new StringTokenizer(st.nextToken(), ":");
-                    int horaFin = Integer.parseInt(fin.nextToken() + fin.nextToken());
+                    int horaInicio = Integer.parseInt(st.nextToken() + st.nextToken());
+                    int horaFin = Integer.parseInt(st.nextToken() + st.nextToken());
                     monitors.add(new Monitor(nombre, dia, horaInicio, horaFin));
                 }
                 lee.close();
@@ -59,5 +56,38 @@ public class CargaArchivos {
             }
         }
         return monitors;
+    }
+
+    public ArrayList<Proceso> cargaProcesos(File file){
+        ArrayList<Proceso> procesos = new ArrayList<>();
+        String buffer;
+        if (file != null){
+            try {
+                FileReader archivos = new FileReader(file);
+                BufferedReader lee = new BufferedReader(archivos);
+                //Lee la primera linea de el numero
+                lee.readLine();
+                //Ciclo para almacenar los datos del texto en el arreglo del mapa positionsMap
+                for (int i = 0; (buffer=lee.readLine())!=null; i++) {
+                    //Se separa en tokens por espacios  "-", "(", ")", ":"
+                    StringTokenizer st = new StringTokenizer(buffer, " -():");
+                    String nombre = st.nextToken(); //Se guarda el nombre
+                    //Se maneja hora militar para facilitar su uso
+                    int horaInicio = Integer.parseInt(st.nextToken() + st.nextToken());
+                    int horaFin = Integer.parseInt(st.nextToken() + st.nextToken());
+                    procesos.add(new Proceso(nombre, horaInicio, horaFin));
+                }
+                lee.close();
+            }catch (IOException e){
+                System.err.println("Error al cargar el Archivo");
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.err.println("Error en el Formato de entrada");
+            }catch (NumberFormatException e){
+                System.err.println("Error en el Formato de entrada");
+            }catch (NoSuchElementException e){
+                System.err.println("Error en el Formato de entrada");
+            }
+        }
+        return procesos;
     }
 }

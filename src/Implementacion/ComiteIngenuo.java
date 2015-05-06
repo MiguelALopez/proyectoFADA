@@ -13,19 +13,13 @@ package Implementacion;
 
 import java.util.ArrayList;
 
-public class Comite {
-
-    //Esta lista contiene a todos los monitores
-    private ArrayList<Monitor> monitors;
-    //Conjunto de todos los comites posibles
-    private ArrayList<ArrayList<Monitor>> conjComites;
-
-
-    public Comite(){
-        monitors = new ArrayList<Monitor>();
+public class ComiteIngenuo {
+    private ArrayList<Monitor> monitors;//Esta lista contiene a todos los monitores
+    private ArrayList<ArrayList<Monitor>> conjComites;//Conjunto de todos los comites posibles
+    public ComiteIngenuo(ArrayList<Monitor> monitors){
+        this.monitors = monitors;
         conjComites = new ArrayList<ArrayList<Monitor>>();
     }
-
 
     //Metodo encargado de generar el menor comite
     public ArrayList<Monitor> generarComiteIngenua(){
@@ -39,10 +33,6 @@ public class Comite {
         int n = monitors.size();
         if (n == 0){
             conjComites.add(comite);
-            /*for (int i = 0; i < comite.size(); i++) {
-                System.out.print(comite.get(i).getNombre() + " ");
-            }
-            System.out.println();*/
         }else {
             for (int i = 0; i < n; i++) {
                 ArrayList<Monitor> tmp = new ArrayList<Monitor>();

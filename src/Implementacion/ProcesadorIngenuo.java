@@ -14,13 +14,11 @@ package Implementacion;
 import java.util.ArrayList;
 
 public class ProcesadorIngenuo {
-    //Lista que contiene los procesos que se desean ejecutar
-    private ArrayList<Proceso> procesos;
-    //Conjuto de todos los procesos posibles que puede hacer el procesador
-    private ArrayList<ArrayList<Proceso>> conjProcesos;
+    private ArrayList<Proceso> procesos;//Lista que contiene los procesos que se desean ejecutar
+    private ArrayList<ArrayList<Proceso>> conjProcesos;//Conjuto de todos los procesos posibles que puede hacer el procesador
 
-    public ProcesadorIngenuo() {
-        procesos = new ArrayList<Proceso>();
+    public ProcesadorIngenuo(ArrayList<Proceso> procesos){
+        this.procesos = procesos;
         conjProcesos = new ArrayList<ArrayList<Proceso>>();
     }
 
@@ -28,20 +26,14 @@ public class ProcesadorIngenuo {
         conjProcesos = new ArrayList<ArrayList<Proceso>>();
         permutacion(new ArrayList<Proceso>(), procesos);
         return conjProcesos.get(mayorNumProcesos(conjProcesos));
-//        return null;
     }
 
     //Este metodo se encarga de hacer una combinatoria de todos los posibles comites
     public void permutacion(ArrayList<Proceso> procesador, ArrayList<Proceso> procesos){
         int n = procesos.size();
-        System.out.println(n);
         if (n == 0){
-//            System.out.println("jajaja");
             conjProcesos.add(procesador);
-            /*for (int i = 0; i < procesador.size(); i++) {
-                System.out.print(procesador.get(i).getTarea() + " ");
-            }
-            System.out.println();*/
+
         }else {
             for (int i = 0; i < n; i++) {
 
