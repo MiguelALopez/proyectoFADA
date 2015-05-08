@@ -24,7 +24,8 @@ import java.util.StringTokenizer;
 * operaciones con estos*/
 public class CargaArchivos {
 
-    public ArrayList<Monitor> cargarMonitores(File file){
+    public ArrayList<Monitor> cargarMonitores(String url){
+        File file = new File(url);
         ArrayList<Monitor> monitors = new ArrayList<Monitor>();
         String buffer;
         if (file != null){
@@ -58,7 +59,8 @@ public class CargaArchivos {
         return monitors;
     }
 
-    public ArrayList<Proceso> cargaProcesos(File file){
+    public ArrayList<Proceso> cargaProcesos(String url){
+        File file = new File(url);
         ArrayList<Proceso> procesos = new ArrayList<Proceso>();
         String buffer;
         if (file != null){
