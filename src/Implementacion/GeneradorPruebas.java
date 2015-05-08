@@ -11,9 +11,15 @@
  */
 package Implementacion;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class GeneradorPruebas {
 
     //Variable que contiene un banco de nombres para generar nombres de los monitores al azar
+    private String diasSemana[] = {"lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"};
     private String bancoNombres[] = {"Isabella", "Daniel", "Olivia", "David", "Alexis", "Gabriel", "Sofía", "Benjamín",
             "Victoria", "Samuel", "Amelia", "Lucas", "Alexa", "Ángel", "Julia", "José", "Camila", "Adrián", "Alexandra", "Sebastián",
             "Maya", "Xavier", "Andrea", "Juan", "Ariana", "Luis", "María", "Diego", "Eva", "Óliver", "Angelina", "Carlos", "Valeria",
@@ -39,48 +45,106 @@ public class GeneradorPruebas {
         return bancoNombres[random];
     }
 
-    public String genHorarioMonitor(int distribucion){
+    public String genDiaSemana(int distribucion) {
+        double probabilidad = Math.random();
+        int random;
+
+        //Probabilidad del 80% de que sea entre semana
+        if (0.8 <= probabilidad && distribucion == 2) {
+            random = (int) (Math.random() * 5);
+        } else {
+            random = (int) (Math.random() * 7);
+        }
+        return diasSemana[random];
+    }
+
+    public String genHorarioMonitor(int distribucion) {
         String hora = "";
-        switch (distribucion){
-            case 1:{
-                int horaInicio = (int) (Math.random() * 22);
-                int horaFin = horaInicio + (int)((Math.random() * 8) + 1);
-                if (horaFin > 24){
-                    horaFin = 23;
-                }
-                hora+= horaInicio + ":00 - " + horaFin + ":00";
-            }break;
-            case 2:{
-                /*------------------------------ Apenas implementando esta parte ------------------------*/
-                double probabilidad = Math.random();
-                //Probabilidad del 80% que sea horario de oficina
-                if (probabilidad <= 0.8){
-                    int horaInicio = (int) (Math.random() * 8);
-                    int horaFin = horaInicio + (int)((Math.random() * 8) + 1);
-                    if (horaFin > 24){
-                        horaFin = 23;
-                    }
-                    hora+= horaInicio + ":00 - " + horaFin + ":00";
-                }
-            }break;
+        double probabilidad = Math.random();
+        //Probabilidad del 80% que sea horario de oficina
+        if (probabilidad <= 0.8 && distribucion == 2) {
+            int horaInicio = (int) ((Math.random() * 8) + 8);
+            int horaFin = horaInicio + (int) ((Math.random() * 8) + 1);
+            if (horaFin > 19) {
+                horaFin = 18;
+            }
+            hora += horaInicio + ":00 - " + horaFin + ":00";
+        } else {
+            int horaInicio = (int) (Math.random() * 22);
+            int horaFin = horaInicio + (int) ((Math.random() * 8) + 1);
+            if (horaFin > 24) {
+                horaFin = 23;
+            }
+            hora += horaInicio + ":00 - " + horaFin + ":00";
+        }
+        return hora;
+    }
+    public String genHorarioProcesador(int distribucion){
+        String hora = "";
+        double probabilidad = Math.random();
+        //Probabilidad del 90% que sea horario de 8 a 16
+        if (probabilidad > 0.9 && distribucion == 2) {
+            int horaInicio = (int) ((Math.random() * 8) + 8);
+            int horaFin = horaInicio + (int) ((Math.random() * 12) + 1);
+            if (horaFin > 17) {
+                horaFin = 16;
+            }
+            hora += horaInicio + ":00 - " + horaFin + ":00";
+        } else {
+            int horaInicio = (int) (Math.random() * 22);
+            int horaFin = horaInicio + 1;
+            if (horaFin > 24) {
+                horaFin = 23;
+            }
+            hora += horaInicio + ":00 - " + horaFin + ":00";
         }
         return hora;
     }
 
-    /*Clase encargada de generar las pruebas de los procesos recibe como entrada la distribucion,
+    /*Clase encargada de generar las pruebas de los procesos recibe como entrada la Distribucion,
     * el numero de procesos que se va a generar y la url donde generara el archivo. Distribucion
     * normal sera referanciada con el numero 1 y distribucion uniforme con el numero 2*/
-    public void pruebasMonitores(int distribucion, int numeroPocesos, String url) {
-        double probabilidad = Math.random();
-//        if (distrubucion == 1) {
-//            for (int i = 0; i < numeroPocesos; i++) {
-//
-//            }
-//        }
+    public void pruebasMonitores(int distribucion, int numeroMonitores, String url) {
+        File archivo = new File(url);
+        BufferedWriter bw;
+        try {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(numeroMonitores + "\n");
+            for (int i = 0; i < numeroMonitores; i++) {
+                bw.write(genNombres() + " " + genDiaSemana(distribucion) + " " + genHorarioMonitor(distribucion) + "\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void pruebasProcesador(int distribucion, int numeroProcesos, String url){
+        File archivo = new File(url);
+        BufferedWriter bw;
+        try {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(numeroProcesos + "\n");
+            for (int i = 0; i < numeroProcesos; i++) {
+                bw.write("Tarea" + (i+1) + " (" + genHorarioProcesador(distribucion) + ")\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        System.out.println(new GeneradorPruebas().genHorarioMonitor(1));
+        long start = System.currentTimeMillis();
+        new GeneradorPruebas().pruebasMonitores(1, 50, "/afs/eisc.univalle.edu.co/user/pregrado/2013/miguelalf/prueba1.txt");
 
+
+        new GeneradorPruebas().pruebasMonitores(2, 50, "/afs/eisc.univalle.edu.co/user/pregrado/2013/miguelalf/prueba2.txt");
+        new GeneradorPruebas().pruebasProcesador(1, 50, "/afs/eisc.univalle.edu.co/user/pregrado/2013/miguelalf/prueba3.txt");
+        new GeneradorPruebas().pruebasProcesador(2, 50, "/afs/eisc.univalle.edu.co/user/pregrado/2013/miguelalf/prueba4.txt");
+        long end = System.currentTimeMillis();
+
+        System.out.println("Took : " + ((end - start) / 1000));
     }
 }
