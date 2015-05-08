@@ -160,7 +160,7 @@ public class ComiteInteligente {
         llenarMatriz();
         iniResultado();
         comite();
-        ArrayList<Integer> posComite = new ArrayList<>();
+        ArrayList<Integer> posComite = new ArrayList<Integer>();
         for (int i = 0; i < resultado.length; i++) {
             boolean seEncuentra = false;//Variable usada para verificar si ya esta la variable antes
             for (int j = 0; j < posComite.size(); j++) {
@@ -172,7 +172,7 @@ public class ComiteInteligente {
                 posComite.add(resultado[i]);
             }
         }
-        ArrayList<Monitor> comite = new ArrayList<>();
+        ArrayList<Monitor> comite = new ArrayList<Monitor>();
         for (int i = 0; i < posComite.size(); i++) {
             comite.add(monitores.get(posComite.get(i)));
         }

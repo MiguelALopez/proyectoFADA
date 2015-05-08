@@ -19,11 +19,11 @@ public class ProcesadorIngenuo {
 
     public ProcesadorIngenuo(ArrayList<Proceso> procesos){
         this.procesos = procesos;
-        procesador = new ArrayList<>();
+        procesador = new ArrayList<Proceso>();
     }
 
     public ArrayList<Proceso> generaProcesosIngenua(){
-        procesador = new ArrayList<>();
+        procesador = new ArrayList<Proceso>();
         permutacion(new ArrayList<Proceso>(), procesos);
         return procesador;
     }
@@ -37,7 +37,7 @@ public class ProcesadorIngenuo {
             for (int i = 0; i < n; i++) {
                 //Esta condicion verifica si puede ser un proceso
                 if (checkPosibleProceso(procesador, procesos.get(i))){
-                    ArrayList<Proceso> tmp = new ArrayList<>();
+                    ArrayList<Proceso> tmp = new ArrayList<Proceso>();
                     tmp.addAll(procesador);
                     tmp.add(procesos.get(i));
                     permutacion(tmp, excludeProceso(procesos, i));
@@ -72,7 +72,7 @@ public class ProcesadorIngenuo {
 
     //Funcion auxiliar que retorna un array list sin el monitor de la posicion que se le pasa
     public ArrayList<Proceso> excludeProceso(ArrayList<Proceso> procesos, int posExclude){
-        ArrayList<Proceso> tmp = new ArrayList<>(procesos); //Se crea una copia de los monitores
+        ArrayList<Proceso> tmp = new ArrayList<Proceso>(procesos); //Se crea una copia de los monitores
         tmp.remove(posExclude);//Se elimina el monitor de la posicion que se ingresa
         return tmp; //Se retorna la lista de monitores sin el monitor eliminado
     }

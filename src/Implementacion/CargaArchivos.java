@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
 public class CargaArchivos {
 
     public ArrayList<Monitor> cargarMonitores(File file){
-        ArrayList<Monitor> monitors = new ArrayList<>();
+        ArrayList<Monitor> monitors = new ArrayList<Monitor>();
         String buffer;
         if (file != null){
             try {
@@ -59,7 +59,7 @@ public class CargaArchivos {
     }
 
     public ArrayList<Proceso> cargaProcesos(File file){
-        ArrayList<Proceso> procesos = new ArrayList<>();
+        ArrayList<Proceso> procesos = new ArrayList<Proceso>();
         String buffer;
         if (file != null){
             try {

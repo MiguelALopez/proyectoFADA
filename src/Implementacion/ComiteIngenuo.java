@@ -45,7 +45,7 @@ public class ComiteIngenuo {
             for (int i = 0; i < n; i++) {
 //                System.out.println(comite.size() +  " - " + numComite);
                 if (comite.size() < numComite){
-                    ArrayList<Monitor> tmp = new ArrayList<>();
+                    ArrayList<Monitor> tmp = new ArrayList<Monitor>();
                     tmp.addAll(comite);
                     tmp.add(monitors.get(i));
                     permutacion(tmp, excludeMonitor(monitors, i));

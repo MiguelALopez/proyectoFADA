@@ -130,7 +130,7 @@ public class ProcesadorInteligente {
         llenarMatriz();
         iniResultado();
         procesosI();
-        ArrayList<Integer> posComite = new ArrayList<>();
+        ArrayList<Integer> posComite = new ArrayList<Integer>();
         for (int i = 0; i < resultado.length; i++) {
             boolean seEncuentra = false;//Variable usada para verificar si ya esta la variable antes
             for (int j = 0; j < posComite.size(); j++) {
@@ -142,7 +142,7 @@ public class ProcesadorInteligente {
                 posComite.add(resultado[i]);
             }
         }
-        ArrayList<Proceso> tmpProcesos = new ArrayList<>();
+        ArrayList<Proceso> tmpProcesos = new ArrayList<Proceso>();
         for (int i = 0; i < posComite.size(); i++) {
             tmpProcesos.add(procesos.get(posComite.get(i)));
         }
