@@ -15,35 +15,58 @@ import java.util.ArrayList;
 
 public class ComiteIngenuo {
     private ArrayList<Monitor> monitors;//Esta lista contiene a todos los monitores
-    private ArrayList<ArrayList<Monitor>> conjComites;//Conjunto de todos los comites posibles
+    private ArrayList<Monitor> comite;//Conjunto de todos los comites posibles
+    private int numComite;//Variable encargada de llevar registro de cual es menor comite
+
     public ComiteIngenuo(ArrayList<Monitor> monitors){
         this.monitors = monitors;
-        conjComites = new ArrayList<ArrayList<Monitor>>();
+        comite = new ArrayList<Monitor>();
+        numComite = monitors.size() ;
     }
 
     //Metodo encargado de generar el menor comite
     public ArrayList<Monitor> generarComiteIngenua(){
-        conjComites = new ArrayList<ArrayList<Monitor>>();
+        comite = new ArrayList<Monitor>();
         permutacion(new ArrayList<Monitor>(), monitors);
-        return conjComites.get(menorComite(conjComites));
+        return comite;
     }
 
     //Este metodo se encarga de hacer una combinatoria de todos los posibles comites
     public void permutacion(ArrayList<Monitor> comite, ArrayList<Monitor> monitors){
         int n = monitors.size();
         if (n == 0){
-            conjComites.add(comite);
-        }else {
-            for (int i = 0; i < n; i++) {
-                ArrayList<Monitor> tmp = new ArrayList<Monitor>();
-                tmp.addAll(comite);
-                tmp.add(monitors.get(i));
-                permutacion(tmp, excludeMonitor(monitors, i));
-                //Esta condicion verifica si el monitor puede no ser integrante del comite
-                if (checkNoIntegrante(comite, monitors.get(i))){
-                    permutacion(comite, excludeMonitor(monitors, i));
-                }
+            addComite(comite);
+            /*for (int i = 0; i < comite.size(); i++) {
+                System.out.print(comite.get(i).getNombre() + " ");
             }
+            System.out.println();*/
+        }else {
+            //for que va hasta el tamano del arreglo y se ejecuta si el comite que va a generar es menor al que hay
+            for (int i = 0; i < n; i++) {
+//                System.out.println(comite.size() +  " - " + numComite);
+                if (comite.size() < numComite){
+                    ArrayList<Monitor> tmp = new ArrayList<>();
+                    tmp.addAll(comite);
+                    tmp.add(monitors.get(i));
+                    permutacion(tmp, excludeMonitor(monitors, i));
+                    //Esta condicion verifica si el monitor puede no ser integrante del comite
+                    if (checkNoIntegrante(comite, monitors.get(i))){
+                        permutacion(comite, excludeMonitor(monitors, i));
+                    }
+                }
+
+            }
+        }
+    }
+
+    //Metodo encargado de verificar si el nuevo comite es menor que el que hay y si es asi lo añade
+    public void addComite(ArrayList<Monitor> newComite){
+        if (comite.size() == 0){
+            comite = newComite;
+            numComite = comite.size();
+        }else if (comite.size() > newComite.size()){
+            comite = newComite;
+            numComite = comite.size();
         }
     }
 
@@ -62,19 +85,6 @@ public class ComiteIngenuo {
             }
         }
         return noIntegrante;
-    }
-
-    //Metodo encargado de retornar la posicion del menor comite del conjunto de comites que se ingrese
-    public int menorComite(ArrayList<ArrayList<Monitor>> conjComites){
-        int posMenor = 0;
-        int menor = conjComites.get(0).size();
-        for (int i = 0; i < conjComites.size(); i++) {
-            if (conjComites.get(i).size() < menor){
-                menor = conjComites.get(i).size();
-                posMenor = i;
-            }
-        }
-        return posMenor;
     }
 
     //Funcion auxiliar que retorna un array list sin el monitor de la posicion que se le pasa

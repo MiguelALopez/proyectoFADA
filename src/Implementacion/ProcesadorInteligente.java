@@ -92,7 +92,7 @@ public class ProcesadorInteligente {
         boolean llenaResultado = true;
         int[] seleccionFila = matrizProcesos[pos];
         boolean valido = true;
-        int[] aux = {0, 0, 0, 0, 0, 0};
+        int[] aux = new int[matrizProcesos.length];
         for (int i = 0; i < resultado.length && valido; i++) {
             if (resultado[i] == -1 && seleccionFila[i] != 0) {
                 resultado[i] = pos;
