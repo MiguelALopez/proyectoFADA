@@ -190,12 +190,12 @@ public class MenuPrincipal extends JFrame{
         constraintsButStart.gridwidth = 1;
         constraintsButStart.gridheight = 1;
         constraintsButStart.insets = new Insets(10,10,10,10);
-        panelPrincipal.add(buttonStart, constraintsButStart);
+        panelPrincipal.add(buttonGenerate, constraintsButStart);
         constraintsButStart.gridx = 2;
         constraintsButStart.gridy = 8;
         constraintsButStart.gridwidth = 1;
         constraintsButStart.gridheight = 1;
-        panelPrincipal.add(buttonGenerate, constraintsButStart);
+        panelPrincipal.add(buttonStart, constraintsButStart);
 
         GridBagConstraints constraintsLabelTexDistri = new GridBagConstraints();
         constraintsLabelTexDistri.gridx = 1;

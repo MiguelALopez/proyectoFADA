@@ -126,7 +126,7 @@ public class ProcesadorInteligente {
     }
 
     //Metodo encargado de generar los procesos que se van a ejecutar
-    public ArrayList<Proceso> generarComiteSmart() {
+    public ArrayList<Proceso> generarProcesosSmart() {
         llenarMatriz();
         iniResultado();
         procesosI();

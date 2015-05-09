@@ -23,109 +23,131 @@ public class Eventos {
     private MenuPrincipal menuPrincipal;
     private ComiteIngenuo comiteIngenuo;
 
-    boolean cargado;
-
     public Eventos(final MenuPrincipal menuPrincipal) {
         this.menuPrincipal = menuPrincipal;
-        cargado = false;
 
+        menuPrincipal.buttonSaveFiles.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JFileChooser jFileChooser = new JFileChooser();
+                        jFileChooser.showSaveDialog(menuPrincipal);
+                        String url = String.valueOf(jFileChooser.getSelectedFile());
+                        if (!url.equals("null")){
+                            menuPrincipal.textFieldSaveFiles.setText(url);
+                        }
+                    }
+                }
+        );
         menuPrincipal.buttonLoadFiles.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Creo un JfileChooser para obtener el fichero
                         JFileChooser jFileChooser = new JFileChooser();
                         jFileChooser.showOpenDialog(menuPrincipal);
                         String url = String.valueOf(jFileChooser.getSelectedFile());
-                        if (!url.equals("null")){
-                            File file = jFileChooser.getSelectedFile();
-                            menuPrincipal.textFieldLoadFiles.setText(url);
-                            cargado = true;
-                        }else{
-                            cargado = false;
-                        }
+                        menuPrincipal.textFieldLoadFiles.setText(url);
 
+                    }
+                }
+        );
+
+        menuPrincipal.buttonGenerate.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        generarPrueba();
                     }
                 }
         );
 
         menuPrincipal.buttonStart.addActionListener(
-                new AbstractAction() {
+                new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (true){
-                            if (menuPrincipal.radioButtonComiteExaust.isSelected()){
-                                String urlLoad = menuPrincipal.textFieldLoadFiles.getText();
-                                String urlSave = menuPrincipal.textFieldSaveFiles.getText();
-                                int distribucion = 2;
-                                if (menuPrincipal.radioButtonDistUni.isSelected()){
-                                    distribucion = 1;
-                                }
-                                new GeneradorPruebas().pruebasMonitores(distribucion,20,urlSave);
-                                ArrayList<Monitor> monitors = new CargaArchivos().cargarMonitores(urlLoad);
-                                ArrayList<Monitor> comite = new ComiteIngenuo(monitors).generarComiteIngenua();
-                                String mensaje = "Numero de personas en el comite: ";
-                                mensaje+= comite.size() + "\n";
-                                for (int i = 0; i < comite.size(); i++) {
-                                    mensaje += comite.get(i).getNombre() + "\n";
-                                }
-                                JOptionPane.showMessageDialog(null, mensaje);
-
-                            }
-                            if (menuPrincipal.radioButtonComiteSmart.isSelected()){
-                                String urlLoad = menuPrincipal.textFieldLoadFiles.getText();
-                                String urlSave = menuPrincipal.textFieldSaveFiles.getText();
-                                int distribucion = 2;
-                                if (menuPrincipal.radioButtonDistUni.isSelected()){
-                                    distribucion = 1;
-                                }
-                                new GeneradorPruebas().pruebasMonitores(distribucion,20,urlSave);
-                                ArrayList<Monitor> monitors = new CargaArchivos().cargarMonitores(urlLoad);
-                                ArrayList<Monitor> comite = new ComiteInteligente(monitors).generarComiteSmart();
-                                String mensaje = "Numero de personas en el comite: ";
-                                mensaje+= comite.size() + "\n";
-                                for (int i = 0; i < comite.size(); i++) {
-                                    mensaje += comite.get(i).getNombre() + "\n";
-                                }
-                                JOptionPane.showMessageDialog(null, mensaje);
-                            }
-                            if (menuPrincipal.radioButtonProcExaust.isSelected()){
-                                String urlLoad = menuPrincipal.textFieldLoadFiles.getText();
-                                String urlSave = menuPrincipal.textFieldSaveFiles.getText();
-                                int distribucion = 2;
-                                if (menuPrincipal.radioButtonDistUni.isSelected()){
-                                    distribucion = 1;
-                                }
-                                new GeneradorPruebas().pruebasProcesador(distribucion, 20,urlSave);
-                                ArrayList<Proceso> procesos = new CargaArchivos().cargaProcesos(urlLoad);
-                                ArrayList<Proceso> procesador = new ProcesadorIngenuo(procesos).generaProcesosIngenua();
-                                String mensaje = "Numero de procesos a ejecutar: ";
-                                mensaje+= procesador.size() + "\n";
-                                for (int i = 0; i < procesador.size(); i++) {
-                                    mensaje += procesador.get(i).getTarea() + "\n";
-                                }
-                                JOptionPane.showMessageDialog(null, mensaje);
-                            }
-                            if (menuPrincipal.radioButtonProcSmart.isSelected()){
-                                String urlLoad = menuPrincipal.textFieldLoadFiles.getText();
-                                String urlSave = menuPrincipal.textFieldSaveFiles.getText();
-                                int distribucion = 2;
-                                if (menuPrincipal.radioButtonDistUni.isSelected()){
-                                    distribucion = 1;
-                                }
-                                new GeneradorPruebas().pruebasProcesador(distribucion,20,urlSave);
-                                ArrayList<Proceso> procesos = new CargaArchivos().cargaProcesos(urlLoad);
-                                ArrayList<Proceso> procesador = new ProcesadorInteligente(procesos).generarComiteSmart();
-                                String mensaje = "Numero de procesos a ejecutar: ";
-                                mensaje+= procesador.size() + "\n";
-                                for (int i = 0; i < procesador.size(); i++) {
-                                    mensaje += procesador.get(i).getTarea() + "\n";
-                                }
-                                JOptionPane.showMessageDialog(null, mensaje);
-                            }
+                        String url = menuPrincipal.textFieldLoadFiles.getText();
+                        if (menuPrincipal.radioButtonComiteExaust.isSelected()){
+                            ArrayList<Monitor> monitors = new CargaArchivos().cargarMonitores(url);
+                            menuPrincipal.textAreaNaive.setText(genMonitores(monitors, 1));
+                        }else if (menuPrincipal.radioButtonComiteSmart.isSelected()){
+                            ArrayList<Monitor> monitors = new CargaArchivos().cargarMonitores(url);
+                            menuPrincipal.textAreaSmart.setText(genMonitores(monitors, 2));
+                        }else if (menuPrincipal.radioButtonProcExaust.isSelected()){
+                            ArrayList<Proceso> procesos = new CargaArchivos().cargaProcesos(url);
+                            menuPrincipal.textAreaNaive.setText(genProcesos(procesos, 1));
+                        }else if (menuPrincipal.radioButtonProcSmart.isSelected()){
+                            ArrayList<Proceso> procesos = new CargaArchivos().cargaProcesos(url);
+                            menuPrincipal.textAreaSmart.setText(genProcesos(procesos, 2));
                         }
                     }
                 }
         );
     }
+
+    //Metodo encargado de llamar a la clase GeneradorPruebas y hacer las respectivas pruebas
+    public void generarPrueba(){
+        int type = 2;
+        if (menuPrincipal.radioButtonComiteExaust.isSelected() ||
+                menuPrincipal.radioButtonComiteSmart.isSelected()){
+            type = 1;
+        }
+        int distribucion = 2;
+        if (menuPrincipal.radioButtonDistUni.isSelected()){
+            distribucion = 1;
+        }
+        String url = menuPrincipal.textFieldSaveFiles.getText();
+        int tamano = (int) menuPrincipal.spinnerNumDistri.getValue();
+        GeneradorPruebas generadorPruebas = new GeneradorPruebas();
+        if (type == 1){//Hace referencia a las pruebas de los monitores
+            generadorPruebas.pruebasMonitores(distribucion,tamano,url);
+        }else {//Hace referencia a las pruebas del procesador
+            generadorPruebas.pruebasProcesador(distribucion,tamano,url);
+        }
+    }
+
+    //Metodo encargado de hace uso de los algoritmos ingenuos y inteligentes del comite de supervision
+    public String genMonitores(ArrayList<Monitor> monitors, int type){
+        String mensaje = "";
+        long start = System.currentTimeMillis();
+        ArrayList<Monitor> comite;
+        String tipoAlgoritmo;
+        if (type == 1){//Hace referencia al algoritmo ingenuo
+            comite = new ComiteIngenuo(monitors).generarComiteIngenua();
+            tipoAlgoritmo = "Ingenuo";
+        }else {//Hace referencia al algoritmo inteligente
+            comite = new ComiteInteligente(monitors).generarComiteSmart();
+            tipoAlgoritmo = "Inteligente";
+        }
+        long end = System.currentTimeMillis();
+        mensaje += "Numero de personas del comite: " + comite.size() + "\n";
+
+        mensaje += "Tiempo Algoritmo " + tipoAlgoritmo + ": " +  ((end - start) / (double) 1000) + " s\n";
+        for (int i = 0; i < comite.size(); i++) {
+            mensaje += comite.get(i).getNombre() + "\n";
+        }
+        return mensaje;
+    }
+
+    //Metodo encargado de hace uso de los algoritmos ingenuos y inteligentes del comite de supervision
+    public String genProcesos(ArrayList<Proceso> procesos, int type){
+        String mensaje = "";
+        long start = System.currentTimeMillis();
+        ArrayList<Proceso> procesador;
+        String tipoAlgoritmo;
+        if (type == 1){//Hace referencia al algoritmo ingenuo
+            procesador = new ProcesadorIngenuo(procesos).generaProcesosIngenua();
+            tipoAlgoritmo = "Ingenuo";
+        }else {//Hace referencia al algoritmo inteligente
+            procesador = new ProcesadorInteligente(procesos).generarProcesosSmart();
+            tipoAlgoritmo = "Inteligente";
+        }
+        long end = System.currentTimeMillis();
+        mensaje += "Numero de Tareas a realizar: " + procesador.size() + "\n";
+        mensaje += "Tiempo Algoritmo " + tipoAlgoritmo + ": " + ((end - start) / (double) 1000) + " s\n";
+        for (int i = 0; i < procesador.size(); i++) {
+            mensaje += procesador.get(i).getTarea() + "\n";
+        }
+        return mensaje;
+    }
+
 }
