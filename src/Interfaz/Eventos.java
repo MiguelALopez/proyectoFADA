@@ -96,7 +96,7 @@ public class Eventos {
             distribucion = 1;
         }
         String url = menuPrincipal.textFieldSaveFiles.getText();
-        int tamano = (int) menuPrincipal.spinnerNumDistri.getValue();
+        int tamano = Integer.parseInt(menuPrincipal.spinnerNumDistri.getValue().toString());
         GeneradorPruebas generadorPruebas = new GeneradorPruebas();
         if (type == 1){//Hace referencia a las pruebas de los monitores
             generadorPruebas.pruebasMonitores(distribucion,tamano,url);
